@@ -2,8 +2,8 @@ from django.urls import path, include
 from . import views
 
 urlpatterns = [
-    path('products/', views.product_list, name='product-list'),
-    path('products/<int:id>/', views.product_by_id, name='product-by-id'),
+    path('products/', views.ProductListAPIView.as_view(), name='product-list'),
+    path('products/<int:pk>/', views.ProductDetailAPIView.as_view(), name='product-detail'),
     path('orders/', views.order_list, name='order_list'),
     path('product_info/', views.product_info, name='product_info'),
     path('silk/', include('silk.urls', namespace='silk'))
