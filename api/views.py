@@ -16,6 +16,15 @@ class ProductDetailAPIView(generics.RetrieveAPIView):
     serializer_class = ProductSerializer
     lookup_url_kwarg = 'product_id'
 
+class UserOrderListAPIView(generics.ListAPIView):
+    queryset = Order.objects.all()
+    serializer_class = OrderSerializer
+
+    def get_queryset(self):
+        user = self.request.user
+        qs = super().get_queryset()
+        return qs.filter(user=user)
+
 @api_view(['GET'])
 def order_list(request):
     orders = Order.objects.prefetch_related('items__product').all()
